@@ -1,0 +1,51 @@
+{
+  "name": "@chakrahq/chakra-chat-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for Chakra Chat and WhatsApp APIs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "chakra",
+    "chat",
+    "whatsapp",
+    "sdk",
+    "coexistence",
+    "cloud",
+    "api"
+  ],
+  "author": "ChakraHQ",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
