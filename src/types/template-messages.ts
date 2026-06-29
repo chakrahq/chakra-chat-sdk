@@ -5,6 +5,13 @@ import type { TemplateMapping } from "./common.js";
  * @see https://apidocs.chakrahq.com/api-11312774
  */
 export interface SendTemplateMessageParams {
+  /** WhatsApp plugin ID. */
+  pluginId: string;
+  /**
+   * Recipient phone number — fully qualified with country code,
+   * without `+` or formatting characters (e.g. `919901258433`).
+   */
+  toPhoneNumber: string;
   /** WhatsApp phone number ID used to send the message. */
   whatsappPhoneNumberId: string;
   /** WhatsApp template name. */

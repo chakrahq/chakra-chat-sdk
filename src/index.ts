@@ -11,7 +11,9 @@ import type { ChakraChatConfig } from "./types/common.js";
  *
  * const client = new ChakraChat({ accessToken: process.env.CHAKRA_ACCESS_TOKEN! });
  *
- * await client.whatsapp.templateMessages.send("plugin-id", "919901258433", {
+ * await client.whatsapp.templateMessages.send({
+ *   pluginId: "plugin-id",
+ *   toPhoneNumber: "919901258433",
  *   whatsappPhoneNumberId: "775966265503012",
  *   templateName: "hello_world",
  * });

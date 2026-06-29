@@ -14,7 +14,7 @@ npm install chakra-chat-sdk
 import { ChakraChat } from "chakra-chat-sdk";
 
 const client = new ChakraChat({
-  accessToken: process.env.CHAKRA_ACCESS_TOKEN!,
+  accessToken: process.env.CHAKRA_ACCESS_TOKEN,
 });
 ```
 
@@ -47,18 +47,16 @@ Send a WhatsApp template message to a phone number.
 [API docs](https://apidocs.chakrahq.com/api-11312774)
 
 ```typescript
-const message = await client.whatsapp.templateMessages.send(
-  "d83e1d23-50b8-4d87-8f92-842a0ac516f6", // pluginId
-  "919901258433",                          // phoneNumber (country code, no +)
-  {
-    whatsappPhoneNumberId: "775966265503012",
-    templateName: "christmas_promo_23",
-    mapping: [
-      { schemaPropertyName: "1", schemaPropertyValue: "John" },
-    ],
-    imageUrl: "https://example.com/promo.png",
-  },
-);
+const message = await client.whatsapp.templateMessages.send({
+  pluginId: "d83e1d23-50b8-4d87-8f92-842a0ac516f6",
+  toPhoneNumber: "919901258433",
+  whatsappPhoneNumberId: "775966265503012",
+  templateName: "christmas_promo_23",
+  mapping: [
+    { schemaPropertyName: "1", schemaPropertyValue: "John" },
+  ],
+  imageUrl: "https://example.com/promo.png",
+});
 
 console.log(message.id, message.deliveryStatus);
 ```
@@ -66,7 +64,9 @@ console.log(message.id, message.deliveryStatus);
 **OTP / authentication template:**
 
 ```typescript
-await client.whatsapp.templateMessages.send(pluginId, phoneNumber, {
+await client.whatsapp.templateMessages.send({
+  pluginId: "d83e1d23-50b8-4d87-8f92-842a0ac516f6",
+  toPhoneNumber: "919901258433",
   whatsappPhoneNumberId: "105966260583426",
   templateName: "login_otp",
   otpCode: "496093",
@@ -167,7 +167,7 @@ API errors throw `ChakraChatError`. Request timeouts throw `ChakraChatTimeoutErr
 import { ChakraChat, ChakraChatError, ChakraChatTimeoutError } from "chakra-chat-sdk";
 
 try {
-  await client.whatsapp.templateMessages.send(pluginId, phoneNumber, params);
+  await client.whatsapp.templateMessages.send(params);
 } catch (error) {
   if (error instanceof ChakraChatError) {
     console.error(error.statusCode, error.errors, error.responseBody);
