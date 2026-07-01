@@ -4,9 +4,10 @@ import type {
   ChakraChatConfig,
   RequestOptions,
 } from "../types/common.js";
+import { SDK_USER_AGENT } from "../version.js";
 
 const DEFAULT_BASE_URL = "https://api.chakrahq.com";
-const DEFAULT_TIMEOUT_MS = 30_000;
+const DEFAULT_TIMEOUT_MS = 30000;
 
 export class HttpClient {
   private readonly accessToken: string;
@@ -77,6 +78,7 @@ export class HttpClient {
     const headers: Record<string, string> = {
       Authorization: `Bearer ${this.accessToken}`,
       Accept: "application/json",
+      "X-Chakra-SDK": SDK_USER_AGENT,
     };
 
     if (!isFormData && body !== undefined) {
