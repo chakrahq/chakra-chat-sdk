@@ -32,8 +32,12 @@ export class HttpClient {
     }
   }
 
-  async get<T>(path: string, options?: RequestOptions): Promise<T> {
-    return this.request<T>("GET", path, undefined, options);
+  async get<T>(
+    path: string,
+    options?: RequestOptions & { query?: Record<string, string | undefined> },
+  ): Promise<T> {
+    const urlPath = this.buildPathWithQuery(path, options?.query);
+    return this.request<T>("GET", urlPath, undefined, options);
   }
 
   async post<T>(path: string, body: unknown, options?: RequestOptions): Promise<T> {
@@ -50,6 +54,25 @@ export class HttpClient {
 
   buildPath(...segments: string[]): string {
     return segments.map((segment) => encodeURIComponent(segment)).join("/");
+  }
+
+  buildPathWithQuery(
+    path: string,
+    query?: Record<string, string | undefined>,
+  ): string {
+    if (!query) {
+      return path;
+    }
+
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        params.set(key, value);
+      }
+    }
+
+    const queryString = params.toString();
+    return queryString ? `${path}?${queryString}` : path;
   }
 
   private async request<T>(
